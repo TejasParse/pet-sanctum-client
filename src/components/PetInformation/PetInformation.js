@@ -4,14 +4,21 @@ import { useEffect, useState } from 'react'
 import axios from 'axios';
 import { Modal, Button } from "react-bootstrap"; 
 
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 const PetInformation = (props) => {
     let [data, setData] = useState({});
     let temp = useParams()
 
     const [show, setShow] = useState(false);
+    const navigate = useNavigate();
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    let LoginProfile = useSelector((state) => state.LoginProfile);
+    let isLoggedIn = useSelector((state) => state.isLoggedIn);
 
     useEffect(() => {
 
@@ -29,17 +36,29 @@ const PetInformation = (props) => {
 
 
     const AdoptPet = () => {
+
+        if(!isLoggedIn) {
+            alert(
+              "Please login to get yourself a pet!"
+            );
+            return navigate("/Login")
+        }
+
+
         axios
           .post(
-            `${process.env.REACT_APP_SERVER_LINK}/api/pet/AdoptPet/`, {
-
-            }
+            `${process.env.REACT_APP_SERVER_LINK}/api/pet/AdoptPet/${LoginProfile._id}/${data._id}`
           )
           .then((res) => {
-            console.log(res.data);
-            setData(res.data.data);
+            console.log(res.data, "Here");
+            navigate("/Adopt");
+            // alert("Congratulations on willing to Adopt the pet! Our Volunteers will contact you soon");
           })
           .catch((err) => {
+            alert(
+              "Sorry for the inconveince. Please try again"
+            );
+            navigate("/Adopt");
             console.log(err);
           });
 
