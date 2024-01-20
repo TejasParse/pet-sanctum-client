@@ -27,7 +27,7 @@ let Adopt = (props) => {
         axios
           .get(`${process.env.REACT_APP_SERVER_LINK}/api/pet/petsearch?search=${search}`)
           .then((res) => {
-            // setIsLoading(false);
+            setIsLoading(false);
             data = res.data;
             console.log(data.data);
             changeData(res.data.data);
@@ -47,7 +47,7 @@ let Adopt = (props) => {
           .get(`${process.env.REACT_APP_SERVER_LINK}/api/pet/${filter}`)
           .then((res) => {
             data = res.data;
-            // setIsLoading(false);
+            setIsLoading(false);
             console.log(data.data);
             changeData(res.data.data);
           })
