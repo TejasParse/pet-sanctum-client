@@ -13,15 +13,20 @@ let Adopt = (props) => {
 
     let [search, changeSearch] = useState("");
 
+    let [isLoading, setIsLoading] = useState(true);
+
     let onChangeSearch = (newString)=>{
         changeSearch(newString);
     }
 
     useEffect(()=>{
 
+        setIsLoading(true);
+
         axios
           .get(`${process.env.REACT_APP_SERVER_LINK}/api/pet/petsearch?search=${search}`)
           .then((res) => {
+            setIsLoading(false);
             data = res.data;
             console.log(data.data);
             changeData(res.data.data);
@@ -35,11 +40,13 @@ let Adopt = (props) => {
 
     useEffect(()=>{
         
-       
+        setIsLoading(true);
+
         axios
           .get(`${process.env.REACT_APP_SERVER_LINK}/api/pet/${filter}`)
           .then((res) => {
             data = res.data;
+            setIsLoading(false);
             console.log(data.data);
             changeData(res.data.data);
           })
@@ -59,7 +66,7 @@ let Adopt = (props) => {
 
     return (
         <div>
-            <SearchBar onChangeSearch={onChangeSearch}/>
+            <SearchBar onChangeSearch={onChangeSearch} isLoading={isLoading}/>
             <Filters onChangeFilter = {onChangeFilter} currentFilter = {filter} />
             <div id="cards1" className="py-4">
                 <div className="container">
