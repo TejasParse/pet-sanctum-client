@@ -4,6 +4,7 @@ import SearchBar from "./SearchBar";
 import ListPets from "./ListPets";
 import { useState, useEffect }  from "react"
 import axios from "axios";
+import { RingLoader } from "react-spinners"
 
 let Adopt = (props) => {
     
@@ -77,9 +78,16 @@ let Adopt = (props) => {
                         
                         <div className="container">
 
-                            { data.length==0 && <h3>Loading!</h3>}
-                            { data.length !== 0 && <ListPets dataShow={data}/>}
-                            
+                            { !isLoading && data.length==0 && <h3>No Data Found!</h3>}
+                            { !isLoading && data.length !== 0 && <ListPets dataShow={data}/>}
+                            <div className="d-flex justify-content-center my-5">
+
+                                <RingLoader
+                                    color="#000"
+                                    loading={isLoading}
+                                    size={75}
+                                />
+                            </div>
 
                         </div>
                     </div>
