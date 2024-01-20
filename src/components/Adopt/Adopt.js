@@ -4,7 +4,7 @@ import SearchBar from "./SearchBar";
 import ListPets from "./ListPets";
 import { useState, useEffect }  from "react"
 import axios from "axios";
-import { RingLoader } from "react-spinners"
+import { RingLoader, BarLoader } from "react-spinners"
 
 let Adopt = (props) => {
     
@@ -27,7 +27,7 @@ let Adopt = (props) => {
         axios
           .get(`${process.env.REACT_APP_SERVER_LINK}/api/pet/petsearch?search=${search}`)
           .then((res) => {
-            setIsLoading(false);
+            // setIsLoading(false);
             data = res.data;
             console.log(data.data);
             changeData(res.data.data);
@@ -47,7 +47,7 @@ let Adopt = (props) => {
           .get(`${process.env.REACT_APP_SERVER_LINK}/api/pet/${filter}`)
           .then((res) => {
             data = res.data;
-            setIsLoading(false);
+            // setIsLoading(false);
             console.log(data.data);
             changeData(res.data.data);
           })
@@ -81,12 +81,17 @@ let Adopt = (props) => {
                             { !isLoading && data.length==0 && <h3>No Data Found!</h3>}
                             { !isLoading && data.length !== 0 && <ListPets dataShow={data}/>}
                             <div className="d-flex justify-content-center my-5">
-
-                                <RingLoader
+                                <BarLoader
+                                    color="#000"
+                                    height={4}
+                                    width={200}
+                                    loading={isLoading}
+                                />
+                                {/* <RingLoader
                                     color="#000"
                                     loading={isLoading}
                                     size={75}
-                                />
+                                /> */}
                             </div>
 
                         </div>
