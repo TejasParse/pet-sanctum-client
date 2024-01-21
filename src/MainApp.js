@@ -29,6 +29,7 @@ let MainApp = (props)=>{
                 <Route path="/PetInformation/:id" element={<PetInformation/>} />
                 <Route path="/Signup" element={<Signup/>} />
                 <Route path="/DonateUs" element={<DonateUs/>} />
+                {/* TODO: From here */}
                 <Route path="/Blogs" element={<Blogs/>} />
                 <Route path="/BlogRead/:id" element={<BlogRead />} />
                 <Route path="/Contact" element={<Contact/>} />

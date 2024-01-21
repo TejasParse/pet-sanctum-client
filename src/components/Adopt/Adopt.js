@@ -5,6 +5,7 @@ import ListPets from "./ListPets";
 import { useState, useEffect }  from "react"
 import axios from "axios";
 import { RingLoader, BarLoader } from "react-spinners"
+import { toast } from 'react-toastify';
 
 let Adopt = (props) => {
     
@@ -31,8 +32,20 @@ let Adopt = (props) => {
             data = res.data;
             console.log(data.data);
             changeData(res.data.data);
+
           })
           .catch((err) => {
+            toast.error(`Error: ${err.message}`, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            setIsLoading(false);
             console.log(err);
           });
 
@@ -52,6 +65,17 @@ let Adopt = (props) => {
             changeData(res.data.data);
           })
           .catch((err) => {
+            toast.error(`Error: ${err.message}`, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            setIsLoading(false);
             console.log(err);
           });
 
