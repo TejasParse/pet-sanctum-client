@@ -8,6 +8,9 @@ import { authActions } from "../../store/index"
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import { toast } from 'react-toastify';
+import { RingLoader, BarLoader, ClipLoader } from "react-spinners"
+
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 
@@ -31,6 +34,16 @@ let Profile = ()=>{
     let isAdmin = LoginProfile.isAdmin;
     
     let onClickLogout = (event)=>{
+      toast.success(`Logged Out Succesfully!`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
         dispatch(
             authActions.logout({}) // Inside (), dictionary used (action.payload.username)
         )
@@ -214,11 +227,30 @@ let Profile = ()=>{
             }
           )
           .then((res) => {
-
-            alert(res.data.message)
+            toast.success(`${res.data.message}`, {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+            // alert(res.data.message)
 
           })
           .catch((err) => {
+            toast.error(`Error: ${err.message}`, {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
             console.log(err);
           });
 
@@ -261,7 +293,7 @@ let Profile = ()=>{
             className="mb-3"
             justify
           >
-            <Tab eventKey="edit" title="Edit Profile Info">
+            <Tab eventKey="edit" title="Change Password">
               <form className="row g-3 mt-1">
                 <div className="input-group mb-2 col-6">
                   <FloatingLabel
